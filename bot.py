@@ -15,12 +15,10 @@ access_token_secret="NpSupcvuyCk8fYND5rnG16bebhtUtw9iQyKYVDwqsPsTF"
 base_dir = 'images'
 midi_dir = 'midi'
 
-list = os.listdir("midi/") # dir is your directory path
+list = os.listdir("midi/") 
 number_files = len(list)
 print(number_files)
-
-n = 1 + number_files # counter for image downloaded
-
+n = 1 + number_files 
 
 def midi(trackname, fullname):
     callpy = 'python midi.py %s %s' % (fullname, trackname)
@@ -35,28 +33,20 @@ class StdOutListener(StreamListener):
             for m in data['entities']['media']:
                 tweetId = data.get('id_str')
                 media_url = m['media_url']
-                #print("Username: " + data['user']['screen_name'])
-                #print(media_url)
                 output_file = '%s/%s.jpg' % (base_dir, str(n).zfill(8))
                 cmd = 'wget %s -O %s' % (media_url, output_file)
-                #print(cmd)
                 os.system(cmd)
                 name = str(n).zfill(8)
-                #print(name)
                 imgfile = "images/" + name + ".jpg"
                 print(imgfile)
-                #make_midi(imgfile, "test.mid")
                 tname = str(n).zfill(8)
                 midi(tname, output_file)
                 n += 1
-            print('') # extra newline for formating
-        #print("ID: " + tweetId)
+            print('') 
+
         replyText = "@" + data['user']['screen_name'] + " http://45.55.73.14/bbcounter/midi/" + tname + ".mid"
-        #api.update_with_media(filename, "here you go: @" + username)
         api.update_status(status=replyText, in_reply_to_status_id=tweetId)
-        #print(data['user']['screen_name'] + " : " + data['text'] + "\n" + tweetId)    
-
-
+        print(data['user']['screen_name'] + " : " + data['text'] + "\n" + tweetId)    
 
         return True
 

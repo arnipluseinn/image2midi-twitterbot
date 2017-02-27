@@ -17,7 +17,6 @@ time = 0
 mf.addTrackName(track, time, trackname)
 mf.addTempo(track, time, 120)
 channel = 0
-#volume = 100
 photo = Image.open(imgname).transpose(Image.FLIP_TOP_BOTTOM)
 
 photo = photo.resize(size, Image.NEAREST)
@@ -33,8 +32,6 @@ for y in range(0, height):
 		R,G,B = RGB  
 		brightness = (R/2)+(G/2)+(B/2)
 		volume = brightness/3
-		#print(y + "\n")
-		#print "\n\n"
 		pitch = y
 		time = x             
 		duration = 1         
