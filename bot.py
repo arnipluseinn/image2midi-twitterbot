@@ -7,17 +7,17 @@ import tweepy
 
 # python3.4 bot.py
 
-consumer_key="6cuEp8qNCh0CYJQBr8VRkSoc9"
-consumer_secret="OyJMdmhdxsjiIIzmz3ahDiJOIpNYgvJekxLg8VAtdIvupmsaZ9"
-access_token="831260987961573378-CJMUdsPo6DXUfQ4uFSpmWkSK05LKyD6"
-access_token_secret="NpSupcvuyCk8fYND5rnG16bebhtUtw9iQyKYVDwqsPsTF"
+consumer_key=""
+consumer_secret=""
+access_token=""
+access_token_secret=""
 
 base_dir = 'images'
 midi_dir = 'midi'
 
 list = os.listdir("midi/") 
 number_files = len(list)
-print(number_files)
+#print(number_files)
 n = 1 + number_files 
 
 def midi(trackname, fullname):
@@ -34,24 +34,25 @@ class StdOutListener(StreamListener):
                 tweetId = data.get('id_str')
                 media_url = m['media_url']
                 output_file = '%s/%s.jpg' % (base_dir, str(n).zfill(8))
-                cmd = 'wget %s -O %s' % (media_url, output_file)
+                cmd = 'wget %s -O %s &' % (media_url, output_file)
                 os.system(cmd)
                 name = str(n).zfill(8)
                 imgfile = "images/" + name + ".jpg"
-                print(imgfile)
+                #print(imgfile)
                 tname = str(n).zfill(8)
                 midi(tname, output_file)
                 n += 1
-            print('') 
+                replyText = "@" + data['user']['screen_name'] + " http://45.55.73.14/bbcounter/midi/" + tname + ".mid"
+                api.update_status(status=replyText, in_reply_to_status_id=tweetId)
+            #print('') 
 
-        replyText = "@" + data['user']['screen_name'] + " http://45.55.73.14/bbcounter/midi/" + tname + ".mid"
-        api.update_status(status=replyText, in_reply_to_status_id=tweetId)
-        print(data['user']['screen_name'] + " : " + data['text'] + "\n" + tweetId)    
+
+        #print(data['user']['screen_name'] + " : " + data['text'] + "\n" + tweetId)    
 
         return True
 
     def on_error(self, status):
-        print(status)
+        stats = status
 
 if __name__ == '__main__':
     listener = StdOutListener()
