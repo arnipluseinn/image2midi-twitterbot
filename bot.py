@@ -5,9 +5,11 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import tweepy
 
+# Usage
 # python3.4 bot.py &
 
-consumer_key=""
+#Twitter API Keys
+consumer_key="" 
 consumer_secret=""
 access_token=""
 access_token_secret=""
