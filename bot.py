@@ -5,7 +5,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import tweepy
 
-# python3.4 bot.py
+# python3.4 bot.py &
 
 consumer_key=""
 consumer_secret=""
